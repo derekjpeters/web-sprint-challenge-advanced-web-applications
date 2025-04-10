@@ -39,17 +39,21 @@ export default function App() {
 		axios
 			.post(loginUrl, { username, password })
 			.then((res) => {
-				localStorage.setItem("token", res.data.token);
+				const token = res.data.token;
+				console.log("✅ Token received:", token); // <-- log it here!
+				localStorage.setItem("token", token);
 				setMessage(res.data.message);
 				redirectToArticles();
 			})
 			.catch((err) => {
-				console.error(err);
+				console.error(
+					"❌ Login failed:",
+					err.response?.data?.message || err.message
+				);
 				setMessage(err.response?.data?.message || "Login failed.");
 			})
 			.finally(() => setSpinnerOn(false));
 	};
-
 	const getArticles = () => {
 		setMessage("");
 		setSpinnerOn(true);
