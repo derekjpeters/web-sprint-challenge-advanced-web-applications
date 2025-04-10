@@ -59,7 +59,7 @@ export default function App() {
 		setSpinnerOn(true);
 
 		const token = localStorage.getItem("token");
-
+		console.log("fetching articles...")
 		axios
 			.get(articlesUrl, {
 				headers: {
@@ -67,6 +67,7 @@ export default function App() {
 				},
 			})
 			.then((res) => {
+				console.log("Articles recieved:", res.data.articles);
 				setArticles(res.data.articles);
 				setMessage(res.data.message);
 			})
